@@ -1,0 +1,10 @@
+---
+- name: Create app directory for app
+  sudo: no
+  file: path=/vagrant/app state=directory
+  tags: app
+
+- name: Write bash script that will fix environmental settings.
+  sudo: no
+  template: src=fix_env.j2 dest=/vagrant/app/fix_env.sh
+  tags: app

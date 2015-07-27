@@ -1,0 +1,43 @@
+---
+- name: Get the Node.js maintained repositories script
+  get_url:
+    url=https://deb.nodesource.com/setup_0.12
+    dest=/tmp/nodesetup
+    mode=0440
+  sudo: yes
+  tags: nodejs
+
+- name: Add the Node.js maintained repositories to your Ubuntu package source list
+  shell: /bin/bash /tmp/nodesetup
+  sudo: yes
+  tags: nodejs
+
+- name: Install Node.js and npm
+  apt: pkg=nodejs update-cache=yes
+  sudo: yes
+  tags: nodejs
+
+- name: Npm | Install npm
+  sudo: yes
+  npm: name=npm global=yes
+  tags: npm
+
+- name: Yeoman | Install Yeoman
+  sudo: yes
+  npm: name=yo global=yes
+  tags: yeoman
+
+- name: Bower | Install Bower
+  sudo: yes
+  npm: name=bower global=yes
+  tags: bower
+
+- name: Grunt-cli | Install Grunt-cli
+  sudo: yes
+  npm: name=grunt-cli global=yes
+  tags: grunt
+
+- name: Yeoman | Install Angular-Fullstack generator
+  sudo: yes
+  npm: name=generator-angular-fullstack global=yes
+  tags: yeoman
