@@ -17,6 +17,11 @@
   template: src=gconfig.j2 dest=/home/vagrant/.gitconfig force=no
   tags: git
 
+- name: Install SASS
+  sudo: yes
+  gem: name=sass state=present user_install=no
+  tags: css
+
 - name: Install heroku-toolbelt
   include: 'heroku.yml'
   sudo: yes

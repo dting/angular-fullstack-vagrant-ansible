@@ -33,6 +33,7 @@ Vagrant.configure(2) do |config|
     config.nfs.map_gid = Process.gid
 
   config.vm.provision "ansible" do |ansible|
+    ansible.verbose = "vv"
     ansible.playbook = "provisioning/main.yml"
   end
 end
