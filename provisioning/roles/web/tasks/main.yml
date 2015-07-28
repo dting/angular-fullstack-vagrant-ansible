@@ -11,7 +11,7 @@
 
 - name: Create global .gitconfig with default user.name and user.email.
   sudo: no
-  template: src=.gitconfig.j2 dest=/home/vagrant/.gitconfig force=no
+  template: src=gconfig.j2 dest=/home/vagrant/.gitconfig force=no
   tags: git
 
 - name: Install libpng-dev
