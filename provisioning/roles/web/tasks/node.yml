@@ -17,27 +17,13 @@
   sudo: yes
   tags: nodejs
 
-- name: Npm | Install npm
+- name: Install npm packages
   sudo: yes
-  npm: name=npm global=yes
-  tags: npm
-
-- name: Yeoman | Install Yeoman
-  sudo: yes
-  npm: name=yo global=yes
-  tags: yeoman
-
-- name: Bower | Install Bower
-  sudo: yes
-  npm: name=bower global=yes
-  tags: bower
-
-- name: Grunt-cli | Install Grunt-cli
-  sudo: yes
-  npm: name=grunt-cli global=yes
-  tags: grunt
-
-- name: Yeoman | Install Angular-Fullstack generator
-  sudo: yes
-  npm: name=generator-angular-fullstack global=yes
-  tags: yeoman
+  npm: name={{ item }} global=yes
+  with_items:
+    - npm
+    - bower
+    - grunt-cli
+    - yo
+    - generator-angular-fullstack
+  tags: npm-global

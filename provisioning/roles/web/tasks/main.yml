@@ -1,54 +1,35 @@
 ---
-- name: Install Ruby
-  apt: pkg=ruby update-cache=yes
+- name: Install packages
+  apt: pkg={{ item }}
   sudo: yes
-  tags: ruby
-
-- name: Install git
-  apt: pkg=git update-cache=yes
-  sudo: yes
-  tags: git
+  with_items:
+    - build-essential
+    - curl
+    - git
+    - ruby
+    - libpng-dev
+    - libfontconfig-dev
+    - python-pip
+  tags: packages
 
 - name: Create global .gitconfig with default user.name and user.email.
   sudo: no
   template: src=gconfig.j2 dest=/home/vagrant/.gitconfig force=no
   tags: git
 
-- name: Install libpng-dev
-  apt: pkg=libpng-dev update-cache=yes
-  sudo: yes
-  tags: libpng-dev
-
-- name: Install libfontconfig-dev
-  apt: pkg=libfontconfig-dev update-cache=yes
-  sudo: yes
-  tags: libfontconfig-dev
-
-- name: Install build-essential
-  apt: pkg=build-essential update-cache=yes
-  sudo: yes
-  tags: build-essential
-
 - name: Install heroku-toolbelt
   include: 'heroku.yml'
   sudo: yes
   tags: heroku-toolbelt
 
-- name: Build hosts file
-  lineinfile: dest=/etc/hosts regexp='.*db$' line="192.168.111.223 db" state=present
-  tags: etc/hosts
-
 - name: Install nodejs, npm, and npm packages
   include: node.yml
   tags: nodejs
 
-- name: Register app path
-  stat: path=/vagrant/app
-  register: check_path
-
-- name: Create app dir and fix_env script.
-  include: app.yml
-  when: check_path.stat.exists == false
+- name: Create app directory for app
+  sudo: no
+  file: path=/vagrant/app state=directory
+  tags: app
 
 - name: Start in /vagrant directory when ssh
   lineinfile: dest=/home/vagrant/.bashrc regexp='^cd /vagrant/app$' line="cd /vagrant/app" state=present

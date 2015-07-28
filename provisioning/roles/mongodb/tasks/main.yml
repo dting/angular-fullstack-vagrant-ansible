@@ -1,4 +1,4 @@
-
+---
 - name: Import the public key used by the mongo package management system
   apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=7F0CEB10
   sudo: yes
@@ -9,11 +9,11 @@
   sudo: yes
   tags: mongodb
 
-- name: Create the mongod group
+- name: Create the mongodb group
   group: name={{ mongodb_group }}
   tags: mongodb
 
-- name: Create the mongod user
+- name: Create the mongodb user
   user: name={{ mongodb_user }} group={{ mongodb_group }} comment="MongoD"
   tags: mongodb
 
