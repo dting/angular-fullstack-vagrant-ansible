@@ -3,6 +3,6 @@
   sudo: yes
   roles:
     - common
-    - web
+    - { role: web, git_username: someone, git_email: someone@example.com }
     - mongodb
     - cleanup

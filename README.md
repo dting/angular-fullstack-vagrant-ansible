@@ -40,7 +40,11 @@ Remove git files before you start.
 
     myProject$ find . | grep .git | xargs rm -rf
 
-Bring up the vm's and wait for ansible to provision them.
+If you would like the provisioner to setup your git global config with your username and email, in `provisioning/main.yml` edit:
+
+    - { role: web, git_username: someone, git_email: someone@example.com }
+
+Bring up the vm and wait for ansible to provision it.
 
     myProject$ vagrant up
 
@@ -76,7 +80,7 @@ Let's install some npm packages and login to heroku.
 
 Go back to the original terminal with the running `grunt serve` process and kill it with `ctrl-c`.  
 We are going to deploy to heroku using the `angular-fullstack` heroku deployment generator.  
-Before we do this, we probably want to set the git config global user.name and user.email.
+Before we do this, we probably want to set the git config global user.name and user.email if you did not modify the variables in the `provisioning/main.yml` provisioning file.
 
     vagrant@dev:/vagrant/app$ git config --global user.email "me@example.com"
     vagrant@dev:/vagrant/app$ git config --global user.name "Me"
